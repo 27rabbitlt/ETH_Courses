@@ -1,0 +1,9 @@
+{
+  "main.cpp": "r",
+  "tsc_x86.h": "r",
+  "comp.cpp": "d",
+  "common.h": "r",
+  "mat.h": "r",
+  "mat.cpp": "r",
+  "utils.h": "r"
+}

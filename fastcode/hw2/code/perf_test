@@ -1,0 +1,614 @@
+--------------------------------------------------------------------------------
+-- Metadata
+--------------------------------------------------------------------------------
+Invocation:       /usr/local/bin/cg_annotate cachegrind.out.775
+Command:          ./main
+Events recorded:  Ir
+Events shown:     Ir
+Event sort order: Ir
+Threshold:        0.1%
+Annotation:       on
+
+--------------------------------------------------------------------------------
+-- Summary
+--------------------------------------------------------------------------------
+Ir__________________ 
+
+635,438,536 (100.0%)  PROGRAM TOTALS
+
+--------------------------------------------------------------------------------
+-- File:function summary
+--------------------------------------------------------------------------------
+  Ir________________________  file:function
+
+< 616,220,007 (97.0%, 97.0%)  /home/rabbit27/Workplace/ETH_Courses/fastcode/hw2/code/comp.cpp:
+  616,219,990 (97.0%)           remove_cosine(mat*, mat*, mat*)
+
+<  11,691,275  (1.8%, 98.8%)  /usr/include/c++/9/bits/random.tcc:void rands<double>(double*, unsigned long, unsigned long, double, double)
+
+<   5,179,582  (0.8%, 99.6%)  ???:
+    4,992,582  (0.8%)           ???
+
+<     686,742  (0.1%, 99.7%)  /home/rabbit27/Workplace/ETH_Courses/fastcode/hw2/code/main.cpp:
+      646,929  (0.1%)           kernel_base(mat*, mat*, mat*)
+
+--------------------------------------------------------------------------------
+-- Function:file summary
+--------------------------------------------------------------------------------
+  Ir________________________  function:file
+
+> 616,219,990 (97.0%, 97.0%)  remove_cosine(mat*, mat*, mat*):/home/rabbit27/Workplace/ETH_Courses/fastcode/hw2/code/comp.cpp
+
+>  12,419,543  (2.0%, 98.9%)  void rands<double>(double*, unsigned long, unsigned long, double, double):
+   11,691,275  (1.8%)           /usr/include/c++/9/bits/random.tcc
+
+>   4,992,582  (0.8%, 99.7%)  ???:???
+
+>     646,929  (0.1%, 99.8%)  kernel_base(mat*, mat*, mat*):/home/rabbit27/Workplace/ETH_Courses/fastcode/hw2/code/main.cpp
+
+--------------------------------------------------------------------------------
+-- Annotated source file: /home/rabbit27/Workplace/ETH_Courses/fastcode/hw2/code/comp.cpp
+--------------------------------------------------------------------------------
+Ir_______________ 
+
+-- line 316 ----------------------------------------
+         .                   if (z->data[ij] > 0)
+         .                       z->data[ij] = ALPHA * z->data[ij] + 1;
+         .                   else 
+         .                       z->data[ij] = -z->data[ij] + 1;
+         .                 }
+         .             }
+         .         }
+         .         
+ 1,987,062 (0.3%)  void remove_cosine(mat *x, mat *y, mat *z) {
+     5,566 (0.0%)      double *xdata = x->data;
+         .             double *ydata = y->data;
+     5,566 (0.0%)      double *zdata = z->data;
+         .             double t0, t1;
+         .                 
+    16,698 (0.0%)      double x00 = get(x, 0, 0);
+    11,132 (0.0%)      double x01 = get(x, 0, 1);
+    11,132 (0.0%)      double x02 = get(x, 0, 2);
+    11,132 (0.0%)      double x03 = get(x, 0, 3);
+    11,132 (0.0%)      double x04 = get(x, 0, 4);
+    11,132 (0.0%)      double x05 = get(x, 0, 5);
+         .             
+    16,698 (0.0%)      double cs0 = cos(x00);
+    16,698 (0.0%)      double cs1 = cos(x01);
+    50,094 (0.0%)      double cs2 = cos(x02);
+         .             
+         .             constexpr double csc1 = cos(C * M_PI * 1);
+         .             constexpr double csc2 = cos(C * M_PI * 2);
+         .             constexpr double csc3 = cos(C * M_PI * 3);
+         .             constexpr double csc4 = cos(C * M_PI * 4);
+         .             constexpr double csc5 = cos(C * M_PI * 5);
+         .             
+   567,732 (0.1%)      for (int i = 0; i < 100; i += 2) {
+   278,300 (0.0%)          double yi0 = get(y, i, 0);
+         .                 
+ 2,226,400 (0.4%)          double sqrt0 = sqrt(yi0 * x00);
+ 2,226,400 (0.4%)          double sqrt1 = sqrt(yi0 * x01);
+ 2,226,400 (0.4%)          double sqrt2 = sqrt(yi0 * x02);
+ 2,226,400 (0.4%)          double sqrt3 = sqrt(yi0 * x03);
+ 2,226,400 (0.4%)          double sqrt4 = sqrt(yi0 * x04);
+ 1,948,100 (0.3%)          double sqrt5 = sqrt(yi0 * x05);
+         .                 
+ 8,905,600 (1.4%)          for (int j = 0; j < 96; j += 6) {
+         .                     // load 0
+         .                     double zij0 = get(z, i, j + 0);
+         .                     double yij0 = get(y, i, j + 0);
+         .                     double zi1j0 = get(z, i + 1, j + 0);
+         .                     double xi1j0 = get(x, i + 1, j + 0);
+         .                     
+         .                     // load 1
+         .                     double zij1 = get(z, i, j + 1);
+-- line 365 ----------------------------------------
+-- line 369 ----------------------------------------
+         .                     
+         .                     // load 2
+         .                     double zij2 = get(z, i, j + 2);
+         .                     double yij2 = get(y, i, j + 2);
+         .                     double zi1j2 = get(z, i + 1, j + 2);
+         .                     double xi1j2 = get(x, i + 1, j + 2);
+         .                     
+         .                     // load 3
+ 4,452,800 (0.7%)              double zij3 = get(z, i, j + 3);
+ 8,905,600 (1.4%)              double yij3 = get(y, i, j + 3);
+ 8,905,600 (1.4%)              double zi1j3 = get(z, i + 1, j + 3);
+ 4,452,800 (0.7%)              double xi1j3 = get(x, i + 1, j + 3);
+         .                     
+         .                     // load 4
+ 4,452,800 (0.7%)              double zij4 = get(z, i, j + 4);
+ 8,905,600 (1.4%)              double yij4 = get(y, i, j + 4);
+ 4,452,800 (0.7%)              double zi1j4 = get(z, i + 1, j + 4);
+ 8,905,600 (1.4%)              double xi1j4 = get(x, i + 1, j + 4);
+         .                     
+         .                     // load 5
+ 8,905,600 (1.4%)              double zij5 = get(z, i, j + 5);
+ 8,905,600 (1.4%)              double yij5 = get(y, i, j + 5);
+ 8,905,600 (1.4%)              double zi1j5 = get(z, i + 1, j + 5);
+ 8,905,600 (1.4%)              double xi1j5 = get(x, i + 1, j + 5);
+         .                     
+         .                     // calc0
+31,169,600 (4.9%)              double t00 = (zij0 / sqrt0 + yij0) * cs0 * ALPHA + 1;
+26,716,800 (4.2%)              double t10 = (zi1j0 + xi1j0) * cs0 * ALPHA + 1;
+         .                     
+         .                     // calc1
+31,169,600 (4.9%)              double t01 = (zij1 / sqrt1 + yij1) * cs1 * ALPHA + 1;
+31,169,600 (4.9%)              double t11 = (zi1j1 / csc1 + xi1j1) * cs1 * ALPHA + 1;
+         .                     
+         .                     // calc2
+35,622,400 (5.6%)              double t02 = (zij2 / sqrt2 + yij2) * cs2 * ALPHA + 1;
+17,811,200 (2.8%)              double t12 = (zi1j2 / csc2 + xi1j2) * cs2;
+13,358,400 (2.1%)              if (t12 > 0)
+     1,788 (0.0%)                  t12 = t12  * ALPHA + 1;
+         .                     else 
+17,808,816 (2.8%)                  t12 = -t12 + 1;
+         .                     
+         .                     // calc3
+26,716,800 (4.2%)              double t03 = (zij3 / sqrt3 + yij3) * cs0 * ALPHA + 1;
+ 8,905,600 (1.4%)              double t13 = (zi1j3 / csc3 + xi1j3) * cs0;
+13,358,400 (2.1%)              if (t13 > 0)
+ 2,111,007 (0.3%)                  t13 = t13  * ALPHA + 1;
+         .                     else 
+14,996,524 (2.4%)                  t13 = -t13 + 1;
+         .                     
+         .                     // calc4
+26,716,800 (4.2%)              double t04 = (zij4 / sqrt4 + yij4) * cs1 * ALPHA + 1;
+13,358,400 (2.1%)              double t14 = (zi1j4 / csc4 + xi1j4) * cs1;
+13,358,400 (2.1%)              if (t14 > 0)
+     1,833 (0.0%)                  t14 = t14  * ALPHA + 1;
+         .                     else 
+17,808,756 (2.8%)                  t14 = -t14 + 1;
+         .                     
+         .                     // calc5
+31,169,600 (4.9%)              double t05 = (zij5 / sqrt5 + yij5) * cs2 * ALPHA + 1;
+31,169,600 (4.9%)              double t15 = (zi1j5 / csc5 + xi1j5) * cs2 * ALPHA + 1;
+         .                     
+         .                     // store0
+ 4,452,800 (0.7%)              set(z, i, j, t00);
+17,811,200 (2.8%)              set(z, i + 1, j, t10);
+         .                     
+         .                     // store1
+ 8,905,600 (1.4%)              set(z, i, j + 1, t01);
+ 4,452,800 (0.7%)              set(z, i + 1, j + 1, t11);
+         .                     
+         .                     // store2
+ 8,905,600 (1.4%)              set(z, i, j + 2, t02);
+ 4,452,800 (0.7%)              set(z, i + 1, j + 2, t12);
+         .                     
+         .                     // store3
+ 4,452,800 (0.7%)              set(z, i, j + 3, t03);
+ 4,452,800 (0.7%)              set(z, i + 1, j + 3, t13);
+         .                     
+         .                     // store4
+ 4,452,800 (0.7%)              set(z, i, j + 4, t04);
+ 4,452,800 (0.7%)              set(z, i + 1, j + 4, t14);
+         .                     
+         .                     // store5
+ 4,452,800 (0.7%)              set(z, i, j + 5, t05);
+ 4,452,800 (0.7%)              set(z, i + 1, j + 5, t15);
+         .                 }
+         .                 
+         .                 int j = 96;
+         .                 // load 0
+         .                 double zij0 = get(z, i, j + 0);
+         .                 double yij0 = get(y, i, j + 0);
+         .                 double zi1j0 = get(z, i + 1, j + 0);
+         .                 double xi1j0 = get(x, i + 1, j + 0);
+-- line 460 ----------------------------------------
+-- line 467 ----------------------------------------
+         .                 
+         .                 // load 2
+         .                 double zij2 = get(z, i, j + 2);
+         .                 double yij2 = get(y, i, j + 2);
+         .                 double zi1j2 = get(z, i + 1, j + 2);
+         .                 double xi1j2 = get(x, i + 1, j + 2);
+         .                 
+         .                 // load 3
+   278,300 (0.0%)          double zij3 = get(z, i, j + 3);
+   278,300 (0.0%)          double yij3 = get(y, i, j + 3);
+   278,300 (0.0%)          double zi1j3 = get(z, i + 1, j + 3);
+   278,300 (0.0%)          double xi1j3 = get(x, i + 1, j + 3);
+         .          
+         .                 // calc0
+ 2,226,400 (0.4%)          double t00 = (zij0 / sqrt0 + yij0) * cos(x00) * ALPHA + 1;
+ 1,669,800 (0.3%)          double t10 = (zi1j0 / 1 + xi1j0) * cos(x00) * ALPHA + 1;
+         .                 
+         .                 // calc1
+ 2,504,700 (0.4%)          double t01 = (zij1 / sqrt1 + yij1) * cos(x01) * ALPHA + 1;
+ 1,948,100 (0.3%)          double t11 = (zi1j1 / csc1 + xi1j1) * cos(x01) * ALPHA + 1;
+         .                 
+         .                 // calc2
+ 2,226,400 (0.4%)          double t02 = (zij2 / sqrt2 + yij2) * cos(x02) * ALPHA + 1;
+ 1,113,200 (0.2%)          double t12 = (zi1j2 / csc2 + xi1j2) * cos(x02);
+   834,900 (0.1%)          if (t12 > 0)
+        99 (0.0%)                  t12 = t12  * ALPHA + 1;
+         .                 else 
+ 1,113,068 (0.2%)              t12 = -t12 + 1;
+         .                 
+         .                 // calc3
+ 1,669,800 (0.3%)          double t03 = (zij3 / sqrt3 + yij3) * cos(x00) * ALPHA + 1;
+   556,600 (0.1%)          double t13 = (zi1j3 / csc3 + xi1j3) * cos(x00);
+   834,900 (0.1%)          if (t13 > 0)
+   115,113 (0.0%)                  t13 = t13  * ALPHA + 1;
+         .                 else 
+   959,716 (0.2%)              t13 = -t13 + 1;
+         .          
+         .                 // store0
+   278,300 (0.0%)          set(z, i, j, t00);
+ 1,113,200 (0.2%)          set(z, i + 1, j, t10);
+         .                 
+         .                 // store1
+   278,300 (0.0%)          set(z, i, j + 1, t01);
+   278,300 (0.0%)          set(z, i + 1, j + 1, t11);
+         .                 
+         .                 // store2
+   278,300 (0.0%)          set(z, i, j + 2, t02);
+   278,300 (0.0%)          set(z, i + 1, j + 2, t12);
+         .                 
+         .                 // store3
+   278,300 (0.0%)          set(z, i, j + 3, t03);
+   278,300 (0.0%)          set(z, i + 1, j + 3, t13);
+         .             }
+         .             
+         .             // for (int i = 0; i < 100; i++) {
+         .             //     for (int j = 0; j < 100; j++) {
+         .             //       int ij = i * 100 + j;
+         .             //       if (z->data[ij] > 0)
+         .             //           z->data[ij] = ALPHA * z->data[ij] + 1;
+         .             //       else 
+         .             //           z->data[ij] = -z->data[ij] + 1;
+         .             //     }
+         .             // }
+    33,396 (0.0%)  }
+         .         
+         .         void final_merge_twofor(mat *x, mat *y, mat *z) {
+         .             double *xdata = x->data;
+         .             double *ydata = y->data;
+         .             double *zdata = z->data;
+         .             double t0, t1;
+         .             
+         .             for (int i = 0; i < 100; i += 2) {
+-- line 538 ----------------------------------------
+-- line 723 ----------------------------------------
+         .         void maxperformance(mat* x, mat* y, mat* z) {
+         .             remove_cosine(x, y, z);
+         .         }
+         .         
+         .         /*
+         .         * Called by the driver to register your functions
+         .         * Use add_function(func, description) to add your own functions
+         .         */
+         7 (0.0%)  void register_functions() {
+         .         //   add_function(&slow_performance1, "slow_performance1",1);
+         .           // add_function(&remove_matgetset, "remove_matgetset", 1);
+         .           // add_function(&remove_abs, "remove_abs", 1);
+         .           // add_function(&move_iparity_out, "move_iparity_out", 1);
+         .           // add_function(&loop_unrolling_1i, "loop_unrolling_1i", 1);
+         .           // add_function(&loop_unrolling_full, "loop_unrolling_full", 1);
+         .           // add_function(&final_merge_twofor, "final_merge_twofor", 1);
+         .         //   add_function(&maxperformance, "maxperformance",1);
+         3 (0.0%)    add_function(&remove_cosine, "remove_cosine",1);
+         7 (0.0%)  
+
+--------------------------------------------------------------------------------
+-- Annotated source file: /home/rabbit27/Workplace/ETH_Courses/fastcode/hw2/code/main.cpp
+--------------------------------------------------------------------------------
+Ir____________ 
+
+-- line 48 ----------------------------------------
+      .         #define CYCLES_REQUIRED 1e8
+      .         #define REP 35
+      .         #define EPS (1e-3)
+      .         
+      .         #define C (1.0/3.0)
+      .         #define ALPHA 110.0/41.0
+      .         
+      .         
+     13 (0.0%)  void kernel_base(mat* x, mat* y, mat*z) {
+      .             double t1;
+    304 (0.0%)      for (int i = 0; i < z->n1; i++) {
+ 40,300 (0.0%)          for (int j = 0; j < z->n2; j++) {
+ 30,400 (0.0%)              if (i % 2) {
+110,000 (0.0%)                  t1 = mat_get(z,i,j)/cos(C*M_PI*j) + mat_get(x,i,j);
+      .                     } else {
+205,100 (0.0%)                  t1 = mat_get(z,i,j)/(sqrt(mat_get(y,i,0)) * sqrt(mat_get(x,0,j%6))) + mat_get(y,i,j);
+      .                     }
+160,000 (0.0%)              mat_set(z,i,j,t1*cos(mat_get(x,0,j%3)));
+      .                 }
+      .             }
+    304 (0.0%)      for (int i = 0; i < z->n1; i++) {
+ 40,500 (0.0%)          for (int j = 0; j < z->n2; j++) {
+ 60,000 (0.0%)            mat_activate(z, i, j, ALPHA);
+      .                 }
+      .             }
+      8 (0.0%)  }
+      .         
+      .         /* prototype of the function you need to optimize */
+      .         typedef void(*comp_func)(mat* x, mat* y, mat*z);
+      .         
+      .         void   register_functions();
+      .         double get_perf_score(comp_func f);
+      .         double perf_test(comp_func f, string desc, int flops);
+      .         void   add_function(comp_func f, string name, int flop);
+      .         
+      .         /* Global vars, used to keep track of student functions */
+      4 (0.0%)  vector<comp_func> userFuncs;
+      4 (0.0%)  vector<string> funcNames;
+      4 (0.0%)  vector<int> funcFlops;
+      .         int numFuncs = 0;
+      .         
+      .         /*
+      .         * Registers a user function to be tested by the driver program. Registers a
+      .         * string description of the function as well
+      .         */
+     11 (0.0%)  void add_function(comp_func f, string name, int flops) {
+      .             userFuncs.push_back(f);
+      .             funcNames.emplace_back(name);
+      .             funcFlops.push_back(flops);
+      1 (0.0%)      numFuncs++;
+      8 (0.0%)  }
+      .         
+      .         
+      .         /*
+      .         * Checks the given function for validity. If valid, then computes and
+      .         * reports and returns the number of cycles required per iteration
+      .         */
+     12 (0.0%)  double perf_test(comp_func f, string desc, int flops) {
+      .             double cycles = 0.;
+      1 (0.0%)      long num_runs = 1;
+      2 (0.0%)      double multiplier = 1;
+      .             myInt64 start, end;
+      .         
+      .             int n = SIZE;
+      .             mat x, 
+      5 (0.0%)      mat_build(&x, n, n);
+      5 (0.0%)      mat_build(&y, n, n);
+      6 (0.0%)      rands(x.data, x.n1, x.n2, 0.1, 1.4);
+      6 (0.0%)      rands(y.data, y.n1, y.n2, 0.5, 1.5);
+      5 (0.0%)      mat_build(&z, n, n);
+      .             
+      .             // Warm-up phase: we determine a number of executions that allows
+      .             // the code to be executed for at least CYCLES_REQUIRED cycles.
+      .             // This helps excluding timing overhead when measuring small runtimes.
+      .             do {
+     12 (0.0%)          num_runs = num_runs * multiplier;
+      .                 start = start_tsc();
+    642 (0.0%)          for (size_t i = 0; i < num_runs; i++) {
+    840 (0.0%)              f(&x, &y, &z);           
+      .                 }
+      .                 end = stop_tsc(start);
+      .         
+     12 (0.0%)          cycles = (double)end;
+      6 (0.0%)          multiplier = (CYCLES_REQUIRED) / (cycles);
+      .                 
+      6 (0.0%)      } while (multiplier > 2);
+      .         
+      .             vector<double> cyclesList(REP);
+      .             // Actual performance measurements repeated REP times.
+      .             // We simply store all results and compute medians during post-processing.
+      .             double total_cycles = 0;
+    105 (0.0%)      for (size_t j = 0; j < REP; j++) {
+      .         
+      .                 start = start_tsc();
+ 16,205 (0.0%)          for (size_t i = 0; i < num_runs; ++i) {
+ 21,420 (0.0%)              f(&x, &y, &z);           
+      .                 }
+      .                 end = stop_tsc(start);
+      .         
+    280 (0.0%)          cycles = ((double)end) / num_runs;
+      .                 total_cycles += cycles;
+      .         
+     70 (0.0%)          cyclesList[j] = cycles;
+      .             }
+      .             total_cycles /= REP;
+      .             sort(cyclesList.begin(), cyclesList.end());
+      2 (0.0%)      mat_destroy(&x);
+      2 (0.0%)      mat_destroy(&y);
+      2 (0.0%)      mat_destroy(&z);
+      .             //cycles = total_cycles;
+      3 (0.0%)      cycles = cyclesList[REP/2];
+      .             
+      .             return  cycles; //round((100.0 * flops) / cycles) / 100.0;
+     12 (0.0%)  }
+      .         
+     11 (0.0%)  int main(int argc, char **argv) {
+      3 (0.0%)    cout << "Starting program. ";
+      .           double perf;
+      .           int i;
+      .         
+      1 (0.0%)    register_functions();
+      .         
+      3 (0.0%)    if (numFuncs == 0){
+      .             cout << endl;
+      .             cout << "No functions registered - nothing for driver to do" << endl;
+      .             cout << "Register functions by calling register_func(f, name)" << endl;
+      .             cout << "in register_funcs()" << endl;
+      .         
+      .             return 0;
+      .           }
+      2 (0.0%)    cout << numFuncs << " functions registered." << endl;
+      .            
+      .           //Check validity of functions.
+      .           int n = SIZE;
+      .           mat x, y, z, z_base, z_cp;
+      5 (0.0%)    mat_build(&x, n, n);
+      5 (0.0%)    mat_build(&y, n, n);
+      6 (0.0%)    rands(x.data, x.n1, x.n2, 0.1, 1.4);
+      6 (0.0%)    rands(y.data, y.n1, y.n2, 0.5, 1.0);
+      5 (0.0%)    mat_build(&z, n, n);
+      6 (0.0%)    mat_build(&z_cp, n, n);
+      7 (0.0%)    mat_build(&z_base, n, n);
+      .           copy_n(z.data, n*n, z_cp.data);
+      .           copy_n(z.data, n*n, z_base.data);
+      .           
+      4 (0.0%)    kernel_base(&x, &y, &z_base);
+      .         
+      8 (0.0%)    for (i = 0; i < numFuncs; i++) {
+      1 (0.0%)      comp_func f = userFuncs[i];
+      4 (0.0%)      f(&x, &y, &z);
+      .             
+      3 (0.0%)      double error = nrm_sqr_diff(z.data, z_base.data, n*n);
+      2 (0.0%)      if (error > EPS) {
+      .               cout << "\033[1;31m" << "The result of the " << i+1 << "th function is not correct." << "\033[0m" << std::endl;
+      .             }
+      .             copy_n(z_cp.data, n*n, z.data);
+      .           }
+      .         
+      2 (0.0%)    mat_destroy(&x);
+      2 (0.0%)    mat_destroy(&y);
+      2 (0.0%)    mat_destroy(&z);
+      2 (0.0%)    mat_destroy(&z_cp);
+      2 (0.0%)    mat_destroy(&z_base);
+      .         
+      .         
+      8 (0.0%)    for (i = 0; i < numFuncs; i++) {
+      .             cout << endl << "Running: " << funcNames[i] << endl;
+      5 (0.0%)      perf = perf_test(userFuncs[i], funcNames[i], 1);
+      .             cout << perf << " cycles" << endl;
+      .           }
+      .         
+      .           return 0;
+     15 (0.0%)  
+
+--------------------------------------------------------------------------------
+-- Annotated source file: /usr/include/c++/9/bits/random.tcc
+--------------------------------------------------------------------------------
+Ir______________ 
+
+-- line 321 ----------------------------------------
+        .         	   _UIntType __a, size_t __u, _UIntType __d, size_t __s,
+        .         	   _UIntType __b, size_t __t, _UIntType __c, size_t __l,
+        .         	   _UIntType __f>
+        .             void
+        .             mersenne_twister_engine<_UIntType, __w, __n, __m, __r, __a, __u, __d,
+        .         			    __s, __b, __t, __c, __l, __f>::
+        .             seed(result_type __sd)
+        .             {
+       12 (0.0%)        _M_x[0] = __detail::__mod<_UIntType,
+        .         	__detail::_Shift<_UIntType, __w>::__value>(__sd);
+        .         
+  142,452 (0.0%)        for (size_t __i = 1; __i < state_size; ++__i)
+        .         	{
+        .         	  _UIntType __x = _M_x[__i - 1];
+   22,428 (0.0%)  	  __x ^= __x >> (__w - 2);
+    7,476 (0.0%)  	  __x *= __f;
+        .         	  __x += __detail::__mod<_UIntType, __n>(__i);
+    7,476 (0.0%)  	  _M_x[__i] = __detail::__mod<_UIntType,
+        .         	    __detail::_Shift<_UIntType, __w>::__value>(__x);
+        .         	}
+        .               _M_p = state_size;
+        .             }
+        .         
+        .           template<typename _UIntType,
+        .         	   size_t __w, size_t __n, size_t __m, size_t __r,
+        .         	   _UIntType __a, size_t __u, _UIntType __d, size_t __s,
+-- line 346 ----------------------------------------
+-- line 395 ----------------------------------------
+        .             void
+        .             mersenne_twister_engine<_UIntType, __w, __n, __m, __r, __a, __u, __d,
+        .         			    __s, __b, __t, __c, __l, __f>::
+        .             _M_gen_rand(void)
+        .             {
+        .               const _UIntType __upper_mask = (~_UIntType()) << __r;
+        .               const _UIntType __lower_mask = ~__upper_mask;
+        .         
+  270,468 (0.0%)        for (size_t __k = 0; __k < (__n - __m); ++__k)
+        .                 {
+  269,676 (0.0%)  	  _UIntType __y = ((_M_x[__k] & __upper_mask)
+  269,676 (0.0%)  			   | (_M_x[__k + 1] & __lower_mask));
+  359,568 (0.1%)  	  _M_x[__k] = (_M_x[__k + __m] ^ (__y >> 1)
+  224,500 (0.0%)  		       ^ ((__y & 0x01) ? __a : 0));
+        .                 }
+        .         
+  470,448 (0.1%)        for (size_t __k = (__n - __m); __k < (__n - 1); ++__k)
+        .         	{
+  470,448 (0.1%)  	  _UIntType __y = ((_M_x[__k] & __upper_mask)
+  470,448 (0.1%)  			   | (_M_x[__k + 1] & __lower_mask));
+  627,264 (0.1%)  	  _M_x[__k] = (_M_x[__k + (__m - __n)] ^ (__y >> 1)
+  392,007 (0.1%)  		       ^ ((__y & 0x01) ? __a : 0));
+        .         	}
+        .         
+    1,188 (0.0%)        _UIntType __y = ((_M_x[__n - 1] & __upper_mask)
+    1,188 (0.0%)  		       | (_M_x[0] & __lower_mask));
+    1,584 (0.0%)        _M_x[__n - 1] = (_M_x[__m - 1] ^ (__y >> 1)
+      988 (0.0%)  		       ^ ((__y & 0x01) ? __a : 0));
+      396 (0.0%)        _M_p = 0;
+      396 (0.0%)      }
+        .         
+        .           template<typename _UIntType, size_t __w,
+        .         	   size_t __n, size_t __m, size_t __r,
+        .         	   _UIntType __a, size_t __u, _UIntType __d, size_t __s,
+        .         	   _UIntType __b, size_t __t, _UIntType __c, size_t __l,
+        .         	   _UIntType __f>
+        .             void
+        .             mersenne_twister_engine<_UIntType, __w, __n, __m, __r, __a, __u, __d,
+-- line 432 ----------------------------------------
+-- line 449 ----------------------------------------
+        .             typename
+        .             mersenne_twister_engine<_UIntType, __w, __n, __m, __r, __a, __u, __d,
+        .         			    __s, __b, __t, __c, __l, __f>::result_type
+        .             mersenne_twister_engine<_UIntType, __w, __n, __m, __r, __a, __u, __d,
+        .         			    __s, __b, __t, __c, __l, __f>::
+        .             operator()()
+        .             {
+        .               // Reload the vector - cost is O(n) amortized over n calls.
+  721,188 (0.1%)        if (_M_p >= state_size)
+        .         	_M_gen_rand();
+        .         
+        .               // Calculate o(x(i)).
+  240,000 (0.0%)        result_type __z = _M_x[_M_p++];
+  960,000 (0.2%)        __z ^= (__z >> __u) & __d;
+  960,000 (0.2%)        __z ^= (__z << __s) & __b;
+  960,000 (0.2%)        __z ^= (__z << __t) & __c;
+  480,000 (0.1%)        __z ^= (__z >> __l);
+        .         
+        .               return __z;
+        .             }
+        .         
+        .           template<typename _UIntType, size_t __w,
+        .         	   size_t __n, size_t __m, size_t __r,
+        .         	   _UIntType __a, size_t __u, _UIntType __d, size_t __s,
+        .         	   _UIntType __b, size_t __t, _UIntType __c, size_t __l,
+-- line 473 ----------------------------------------
+-- line 3325 ----------------------------------------
+        .         	= std::min(static_cast<size_t>(std::numeric_limits<_RealType>::digits),
+        .                            __bits);
+        .               const long double __r = static_cast<long double>(__urng.max())
+        .         			    - static_cast<long double>(__urng.min()) + 1.0L;
+        .               const size_t __log2r = std::log(__r) / std::log(2.0L);
+        .               const size_t __m = std::max<size_t>(1UL,
+        .         					  (__b + __log2r - 1UL) / __log2r);
+        .               _RealType __ret;
+  120,000 (0.0%)        _RealType __sum = _RealType(0);
+  120,000 (0.0%)        _RealType __tmp = _RealType(1);
+  600,000 (0.1%)        for (size_t __k = __m; __k != 0; --__k)
+        .         	{
+1,440,000 (0.2%)  	  __sum += _RealType(__urng() - __urng.min()) * __tmp;
+  720,000 (0.1%)  	  __tmp *= __r;
+        .         	}
+  120,000 (0.0%)        __ret = __sum / __tmp;
+  240,000 (0.0%)        if (__builtin_expect(__ret >= _RealType(1), 0))
+        .         	{
+        .         #if _GLIBCXX_USE_C99_MATH_TR1
+        .         	  __ret = std::nextafter(_RealType(1), _RealType(0));
+        .         #else
+        .         	  __ret = _RealType(1)
+        .         	    - std::numeric_limits<_RealType>::epsilon() / _RealType(2);
+        .         #endif
+        .         	}
+-- line 3349 ----------------------------------------
+
+--------------------------------------------------------------------------------
+-- Annotation summary
+--------------------------------------------------------------------------------
+Ir_________________ 
+
+628,598,024 (98.9%)    annotated: files known & above threshold & readable, line numbers known
+          0            annotated: files known & above threshold & readable, line numbers unknown
+          0          unannotated: files known & above threshold & two or more non-identical
+          0          unannotated: files known & above threshold & unreadable 
+  1,660,930  (0.3%)  unannotated: files known & below threshold
+  5,179,582  (0.8%)  unannotated: files unknown
+
